@@ -9,3 +9,6 @@ def receipt(request):
 
 def org_add(request):
     return render(request, 'base/org_add.html')
+
+def signup(request):
+    return render(request, 'base/signup.html')
