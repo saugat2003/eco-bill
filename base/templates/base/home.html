@@ -1,251 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>eco-bill</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --border-color: #e0e0e0;
-            --background-color: #f9f9f9;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 40px;
-            background-color: var(--background-color);
-            color: var(--primary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
         }
 
-        .receipt-container {
-            background: white;
-            max-width: 800px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .smart-scroll {
+            background-color: #212529;
+            padding: 1rem 0;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-            color: var(--primary-color);
-        }
-
-        .header p {
-            margin: 5px 0;
-            color: #666;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .form-control {
+        .container-fluid {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
+            padding: 0 15px;
+            margin: 0 auto;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            height: 20px;
         }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-        }
-
-        .table th {
-            background-color: var(--primary-color);
+        .navbar-brand {
             color: white;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .table input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-        }
-
-        .total {
-            text-align: right;
-            margin: 30px 0;
-        }
-
-        .total p {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .total .final-total {
-            font-size: 20px;
+            text-decoration: none;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary-color);
         }
 
-        .signature {
-            text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            margin-left: auto;
         }
 
-        .actions {
+        .nav-item {
+            margin: 0 1rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .text-primary {
+            color: #007bff;
+        }
+
+        .bg-hero {
+            background: linear-gradient(120deg, #4CAF50, #8BC34A);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .text-center {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid var(--border-color);
+        }
+
+        .heading-black {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
         }
 
         .btn {
-            padding: 12px 24px;
-            margin: 0 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .btn-primary {
-            background-color: var(--secondary-color);
-            color: white;
+            background-color: white;
+            color: #7f70f5;
+            border: none;
         }
 
-        .btn-secondary {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        .btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-boxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .box {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .box-primary { background-color: #4CAF50; } /* Green for sustainability */
+        .box-success { background-color: #8BC34A; } /* Light green for success */
+        .box-danger { background-color: #FF5722; } /* Orange for warnings */
+        .box-info { background-color: #009688; } /* Teal for information */
+
+        .icon-box-inner {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+            
+            .feature-boxes {
+                grid-template-columns: 1fr;
+            }
+            
+            .heading-black {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="receipt-container">
-        <div class="header">
-            <h1>The Westminster College</h1>
-            <p>165 Flanders Road, Westborough, USA</p>
-            <p>Phone: (555) 123-4567 | Email: info@westminster.edu</p>
+    <section class="smart-scroll">
+        <div class="container-fluid">
+            <nav class="navbar">
+                <a class="navbar-brand" href="#">Eco-bill</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Log in</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </section>
 
-        <form id="receiptForm">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="customerName">Bill To:</label>
-                    <input type="text" id="customerName" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="customerNumber">Customer Number:</label>
-                    <input type="text" id="customerNumber" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="customerEmail">Customer Email:</label>
-                    <input type="email" id="customerEmail" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="customerAddress">Customer Address:</label>
-                    <input type="text" id="customerAddress" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="receiptNumber">Receipt Number:</label>
-                    <input type="text" id="receiptNumber" class="form-control" value="REC-578810" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label for="paymentMethod">Payment Method:</label>
-                    <select id="paymentMethod" class="form-control" required>
-                        <option value="">Select payment method</option>
-                        <option value="cash">Cash</option>
-                        <option value="credit">Credit Card</option>
-                        <option value="debit">Debit Card</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
+    <section class="bg-hero">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="heading-black">Effortlessly manage your bills with Eco-bill</h1>
+                <p class="lead">Eco-bill is a platform that helps you manage and track your bills effortlessly. Sign up for free and start saving time and money.</p>
+                <a href="{% url 'receipt' %}" class="btn btn-primary">Get started now →</a>
             </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" placeholder="Search item..." class="form-control"></td>
-                        <td><input type="text" placeholder="Description" class="form-control"></td>
-                        <td><input type="number" value="1" min="1" class="form-control"></td>
-                        <td><input type="number" step="0.01" placeholder="0.00" class="form-control"></td>
-                        <td><input type="number" step="0.01" value="0.00" readonly class="form-control"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="total">
-                <p>Subtotal: <span id="subtotal">0.00 USD</span></p>
-                <p>Tax (10%): <span id="tax">0.00 USD</span></p>
-                <p class="final-total">Total: <span id="total">0.00 USD</span></p>
-            </div>
-
-            <div class="signature">
-                <p>Digital Signature</p>
-                <canvas id="signatureCanvas" width="300" height="100" style="border: 1px solid #ccc;"></canvas>
-            </div>
-
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">Send Receipt</button>
-                <button type="button" class="btn btn-secondary">Save Sale</button>
-            </div>
-        </form>
-    </div>
+        </div>
+    </section>
 </body>
 </html>
