@@ -6,3 +6,6 @@ def home(request):
 
 def receipt(request):
     return render(request, 'base/receipt.html')
+
+def org_add(request):
+    return render(request, 'base/org_add.html')
