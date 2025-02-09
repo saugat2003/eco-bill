@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .required-text {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .table-container {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 5px;
+        }
+
+        .total-label {
+            margin-right: 20px;
+        }
+
+        .signature-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .signature-box {
+            width: 200px;
+            height: 100px;
+            border: 1px dashed #ccc;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signature-box img {
+            width: 40px;
+            opacity: 0.5;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #000;
+            color: white;
+        }
+
+        .add-button {
+            background: none;
+            border: none;
+            color: green;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .currency-select {
+            width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <h2>The Westminster College</h2>
+        </div>
+
+        <div class="form-group">
+            <input type="text" placeholder="Address(Eg: 105 Flanders Road, Westborough, USA)" style="width: 100%;">
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <input type="text" placeholder="Phone No">
+            </div>
+            <div class="column">
+                <input type="text" placeholder="Company Email">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Bill To:</h3>
+                <div class="form-group">
+                    <input type="text" placeholder="Customer Name">
+                    <div class="required-text">Customer Name is not Required</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Customer Number">
+                    <div class="required-text">Required if you want to send receipt to WhatsApp</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Customer Email">
+                    <div class="required-text">Required if you want to send receipt to Email</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Customer Address">
+                    <div class="required-text">Address is not required</div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <label>Receipt Number</label>
+                    <input type="text" value="REC-314755" readonly>
+                    <div class="required-text">Unique Id for the receipt</div>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" value="2025-02-09">
+                    <div class="required-text">Date is required</div>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select>
+                        <option>Select Payment Method</option>
+                    </select>
+                    <div class="required-text">Payment Method is required</div>
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Actions</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><button class="add-button">+</button></td>
+                    <td>
+                        <select style="width: 100%;">
+                            <option>Search a product...</option>
+                        </select>
+                    </td>
+                    <td><input type="number" value="1" style="width: 60px;"></td>
+                    <td><input type="number" style="width: 100px;"></td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <span>USD</span>
+                            <input type="text" value="0.00" style="width: 80px; text-align: right;">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            <div class="total-row">
+                <span class="total-label">Subtotal:</span>
+                <span>0.00 USD</span>
+            </div>
+            <div class="total-row">
+                <span class="total-label">Tax ( Tax %):</span>
+                <span>0.00 USD</span>
+            </div>
+            <div class="total-row">
+                <span class="total-label">Total:</span>
+                <span>0.00 USD</span>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <img src="/api/placeholder/40/40" alt="Upload icon">
+            </div>
+            <div>Seal or Signature</div>
+            <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
+        </div>
+
+        <input type="text" placeholder="Title" style="width: 200px; margin: 20px 0;">
+
+        <div class="button-group">
+            <button class="btn btn-primary">Send Receipt</button>
+            <button class="btn btn-primary">Save Sale</button>
+        </div>
+    </div>
+</body>
+</html>
