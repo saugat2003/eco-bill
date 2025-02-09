@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details div {
+            margin-bottom: 10px;
+        }
+        .details label {
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .total {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .signature {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .signature img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .actions {
+            text-align: center;
+        }
+        .actions button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>The Westminster College</h1>
+        <p>165 Flanders Road, Westborough, USA</p>
+        <p>Phone No: [Insert Phone No] | Company Email: [Insert Email]</p>
+    </div>
+
+    <div class="details">
+        <div><label>Bill To:</label> [Customer Name]</div>
+        <div><label>Customer Number:</label> [Customer Number]</div>
+        <div><label>Customer Email:</label> [Customer Email]</div>
+        <div><label>Customer Address:</label> [Customer Address]</div>
+        <div><label>Receipt Number:</label> REC-578810</div>
+        <div><label>Date:</label> February 9th, 2025</div>
+        <div><label>Payment Method:</label> [Payment Method]</div>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="1">
+        </div>
+        <div class="form-group">
+            <label for="unitPrice">Unit Price:</label>
+            <input type="number" id="unitPrice" name="unitPrice" step="0.01" value="0.00">
+        </div>
+        <div class="form-group">
+            <label for="total">Total:</label>
+            <input type="number" id="total" name="total" step="0.01" value="0.00" readonly>
+        </div>
+    </form>
+
+    <div class="total">
+        <p>Subtotal: <span id="subtotal">0.00</span> USD</p>
+        <p>Tax (Tax %): <span id="tax">0.00</span> USD</p>
+        <p>Total: <span id="grandTotal">0.00</span> USD</p>
+    </div>
+
+    <div class="signature">
+        <p>Seal or Signature</p>
+        <img src="[Insert Image URL]" alt="Signature">
+    </div>
+
+    <div class="actions">
+        <button type="button">Send Receipt</button>
+        <button type="button">Save Sale</button>
+    </div>
+
+    <script>
+        document.getElementById('quantity').addEventListener('input', updateTotal);
+        document.getElementById('unitPrice').addEventListener('input', updateTotal);
+
+        function updateTotal() {
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const unitPrice = parseFloat(document.getElementById('unitPrice').value);
+            const total = quantity * unitPrice;
+            document.getElementById('total').value = total.toFixed(2);
+            document.getElementById('subtotal').textContent = total.toFixed(2);
+            document.getElementById('grandTotal').textContent = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
