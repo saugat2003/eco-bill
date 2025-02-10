@@ -14,9 +14,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #F9FBF9;
+            background: radial-gradient(at right top, #74E926, #72CEC6);
             color: #333;
             line-height: 1.6;
+            margin: 0;
         }
 
         .form-container {
@@ -173,6 +174,7 @@
         {% csrf_token %}
         
         <div class="header">
+        <img src="{{ organization.logo.url }}" alt="{{ organization.name }} Logo" style="max-width: 150px; max-height: 150px; margin-bottom: 1rem;">
             <h2>{{ organization.name }}</h2>
             <h3>{{ organization.address }}</h3>
             <h3>{{ organization.contact_number }}</h3>
