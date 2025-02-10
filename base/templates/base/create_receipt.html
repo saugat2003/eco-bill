@@ -196,7 +196,6 @@
             <h2>{{ organization.name }}</h2>
             <h3>{{ organization.address }}</h3>
             <h3>{{ organization.contact_number }}</h3>
-            <h3>{{ organization.email }}</h3>
             {% if user.is_authenticated %}
                 <p>Logged in as: {{ user.username }}</p>
             {% endif %}
@@ -285,9 +284,9 @@
             <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
         </div>
 
-        {% comment %} <div class="button-group">
+     <div class="button-group">
             <button type="submit" class="btn btn-primary">Save Receipt</button>
-        </div> {% endcomment %}
+        </div>
         <div class="button-group">
             <a href="{% url 'success' %}" class="btn btn-primary">Save Receipt</a>
         </div>

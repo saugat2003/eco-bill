@@ -50,13 +50,13 @@ class InvoiceItemForm(forms.ModelForm):
             'quantity': forms.NumberInput(attrs={'min': 1, 'class': 'form-control'}),
             'unit_price': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'})
         }
-InvoiceItemFormSet = forms.modelformset_factory(
-    InvoiceItem,
-    form=InvoiceItemForm,
-    extra=1,
-    can_delete=True,
-    validate_min=1,  # Require at least one item
-)
+# InvoiceItemFormSet = forms.modelformset_factory(
+#     InvoiceItem,
+#     form=InvoiceItemForm,
+#     extra=1,
+#     can_delete=True,
+#     validate_min=1,  # Require at least one item
+# )
 
 class SignatureForm(forms.ModelForm):
     class Meta:
