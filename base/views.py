@@ -30,12 +30,14 @@ def create_receipt(request):
         invoice_form = InvoiceForm(request.POST)
         if not invoice_form.is_valid():
             messages.error(request, invoice_form.errors)
-            print("hsdfsk is not valid")
+            print("invoice_form is not valid")
 
         signature_form = SignatureForm(request.POST, request.FILES)
         if not signature_form.is_valid():
-            print("dfghjkls;akd;s is not valid")
+            print("signature form is not valid")
             messages.error(request, signature_form.errors)
+
+        invoice_item_form = InvoiceItemForm(request.POST)
 
 
         if customer_form.is_valid() and invoice_form.is_valid() and signature_form.is_valid():
@@ -69,19 +71,32 @@ def create_receipt(request):
             else:
                 print("No signature provided")  # Optional: Can log this
 
+            if invoice_item_form.is_valid():
+                # Save invoice item
+                invoice_item = invoice_item_form.save(commit=False)
+                invoice_item.invoice = invoice
+                invoice_item.save()
+            else:
+                print("invoice_item_form is not valid")
+                messages.error(request, invoice_item_form.errors)
+
+
             # Success message (outside loop)
             messages.success(request, 'Receipt created successfully!')
-            return redirect('receipt_success_page')  # Redirect to avoid form resubmission
+            return redirect('success')  # Redirect to avoid form resubmission
 
         else:
             print("the data is not saved")
             messages.error(request, 'Please correct the errors below.')
+            return redirect('create_receipt')
 
     else:
         # Initialize forms for GET request or after form error
         customer_form = CustomerForm()
         invoice_form = InvoiceForm()
         signature_form = SignatureForm()
+        invoice_item_form= InvoiceItemForm()
+        
 
     # Render form with context
     context = {
@@ -91,6 +106,7 @@ def create_receipt(request):
         'products': Product.objects.filter(organization=organization),
         'payment_methods': PaymentMethod.objects.all(),
         'organization': organization,
+        'invoice_item_form': invoice_item_form,
     }
     return render(request, 'base/create_receipt.html', context)
 # @login_required

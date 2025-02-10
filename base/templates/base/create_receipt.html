@@ -50,6 +50,7 @@
             margin-bottom: 0.5rem;
             color: var(--forest-green);
             font-weight: 500;
+
         }
 
         input[type="text"],
@@ -88,27 +89,6 @@
             font-size: 0.8rem;
             color: #666;
             margin-top: 0.3rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th {
-            background-color: var(--forest-green);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
         }
 
         .add-button {
@@ -245,37 +225,37 @@
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <label for="id_product">Products</label>
+            {{ invoice_item_form.product }}
+        </div>
+        <div class="form-group">
+            <label for="id_quantity">Quantity</label>
+            {{ invoice_item_form.quantity }}
+        </div>
+        <div class="form-group">
+            <label for="id_unit_price">Unit Price</label>
+            {{ invoice_item_form.unit_price }}
+        </div>
+        <div class="form-group">
+            <label for="id_total">Total</label>
+            <input type="text" id="id_total" name="total" readonly value="0.00 Nrs">
+        </div>
 
-        {{ invoice_item_formset.management_form }}
-        <table>
-            <thead>
-                <tr>
-                    <th>Actions</th>
-                    <th>Products</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="invoice-items">
-                {% for form in invoice_item_formset %}
-                    <tr>
-                        <td>
-                            {% if forloop.last %}
-                                <button type="button" class="add-button" onclick="addInvoiceItem()">+</button>
-                            {% else %}
-                                {{ form.DELETE }}
-                            {% endif %}
-                        </td>
-                        <td>{{ form.product }}</td>
-                        <td>{{ form.quantity }}</td>
-                        <td>{{ form.unit_price }}</td>
-                        <td class="item-total">0.00 Nrs</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <script>
+            function calculateTotal() {
+            const quantity = parseFloat(document.querySelector('input[name="quantity"]').value) || 0;
+            const unitPrice = parseFloat(document.querySelector('input[name="unit_price"]').value) || 0;
+            const total = quantity * unitPrice;
+            document.getElementById('id_total').value = total.toFixed(2) + ' Nrs';
+            }
 
+            document.querySelector('input[name="quantity"]').addEventListener('input', calculateTotal);
+            document.querySelector('input[name="unit_price"]').addEventListener('input', calculateTotal);
+        </script>
+        <div class="form-group">
+            <button type="button" class="add-button" onclick="addInvoiceItem()">Add Item</button>
+        </div>
         <div class="signature-section">
             <div class="signature-box">
                 {{ signature_form.image }}
@@ -284,12 +264,9 @@
             <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
         </div>
 
-     <div class="button-group">
-            <button type="submit" class="btn btn-primary">Save Receipt</button>
-        </div>
-        <div class="button-group">
-            <a href="{% url 'success' %}" class="btn btn-primary">Save Receipt</a>
-        </div>
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">Save Receipt</button>
+    </div>
     </form>
     {% endblock %}
 

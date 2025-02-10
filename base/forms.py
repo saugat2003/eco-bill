@@ -50,13 +50,24 @@ class InvoiceItemForm(forms.ModelForm):
             'quantity': forms.NumberInput(attrs={'min': 1, 'class': 'form-control'}),
             'unit_price': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'})
         }
-# InvoiceItemFormSet = forms.modelformset_factory(
-#     InvoiceItem,
-#     form=InvoiceItemForm,
-#     extra=1,
-#     can_delete=True,
-#     validate_min=1,  # Require at least one item
-# )
+
+    def clean_quantity(self):
+        quantity = self.cleaned_data.get('quantity')
+        if quantity <= 0:
+            raise ValidationError("Quantity must be greater than zero")
+        return quantity
+
+    def clean_unit_price(self):
+        unit_price = self.cleaned_data.get('unit_price')
+        if unit_price <= 0:
+            raise ValidationError("Unit price must be greater than zero")
+        return unit_price
+
+
+
+
+
+
 
 class SignatureForm(forms.ModelForm):
     class Meta:
