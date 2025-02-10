@@ -196,7 +196,14 @@
             <h2>{{ organization.name }}</h2>
             <h3>{{ organization.address }}</h3>
             <h3>{{ organization.contact_number }}</h3>
+            <h3>{{ organization.email }}</h3>
+            {% if user.is_authenticated %}
+                <p>Logged in as: {{ user.username }}</p>
+            {% endif %}
         </div>
+
+
+
         <h3>Bill To:</h3>
         <div class="row">
             <div class="column">
@@ -206,12 +213,12 @@
                     <div class="required-text">Customer Name is Required</div>
                 </div>
                 <div class="form-group">
-                    <label for="id_date">WhatsApp</label>
+                    <label for="id_date">WhatsApp Number</label>
                     {{ customer_form.phone }}
                     <div class="required-text">Required if you want to send receipt to WhatsApp</div>
                 </div>
                 <div class="form-group">
-                    <label for="id_date">Email</label>
+                    <label for="id_date">E-mail</label>
                     {{ customer_form.email }}
                     <div class="required-text">Required if you want to send receipt to Email</div>
                 </div>
@@ -234,7 +241,6 @@
                 </div>
                 <div class="form-group">
                     <label for="id_payment_method">Payment Method</label>
-                    
                     {{ invoice_form.payment_method }}
                     <div class="required-text">Payment Method is required</div>
                 </div>
@@ -279,8 +285,11 @@
             <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
         </div>
 
-        <div class="button-group">
+        {% comment %} <div class="button-group">
             <button type="submit" class="btn btn-primary">Save Receipt</button>
+        </div> {% endcomment %}
+        <div class="button-group">
+            <a href="{% url 'success' %}" class="btn btn-primary">Save Receipt</a>
         </div>
     </form>
     {% endblock %}

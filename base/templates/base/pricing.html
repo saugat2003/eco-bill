@@ -1,0 +1,141 @@
+{% load static %}
+{% include 'base/navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing</title>
+    
+    <style>
+        /* General Styles */
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            background-position: center;
+        }
+
+        .container {
+            margin-top: 120px;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+        }
+
+        /* SDG Themed Header */
+        .sdg-header {
+            background: linear-gradient(to right, #56ab2f, #a8e063);
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .pricing-card {
+            background-color: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+            width: 80%;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .pricing-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #388E3C;
+            margin: 10px 0;
+        }
+
+        .pricing-features {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Button */
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #56ab2f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .home-button:hover {
+            background-color: #3d7a1f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sdg-header">
+            💰 Pricing Plans - Sustainable & Affordable
+        </div>
+
+        <div class="pricing-table">
+            <div class="pricing-card">
+                <div class="pricing-title">🌱 Basic Plan</div>
+                <div class="pricing-price">Free</div>
+                <p class="pricing-features">
+                    ✔️ 10 Transactions per month <br>
+                    ✔️ Basic Support <br>
+                    ✔️ Eco-Friendly Digital Invoices
+                </p>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-title">⚡ Pro Plan</div>
+                <div class="pricing-price">$9.99/month</div>
+                <p class="pricing-features">
+                    ✔️ Unlimited Transactions <br>
+                    ✔️ Priority Support <br>
+                    ✔️ Advanced Security Features
+                </p>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-title">🌍 Enterprise Plan</div>
+                <div class="pricing-price">Custom Pricing</div>
+                <p class="pricing-features">
+                    ✔️ Custom Features & API Access <br>
+                    ✔️ 24/7 Dedicated Support <br>
+                    ✔️ Enterprise-Level Security
+                </p>
+            </div>
+        </div>
+
+        <a href="{% url 'home' %}" class="home-button">Go Back to Home</a>
+    </div>
+
+</body>
+</html>

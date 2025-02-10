@@ -8,6 +8,7 @@ class Organization(models.Model):
     address = models.TextField()
     contact_number = models.CharField(max_length=20)
 
+
     def __str__(self):
         return self.name
 
@@ -75,7 +76,7 @@ class InvoiceItem(models.Model):
 
 class Signature(models.Model):
     invoice = models.OneToOneField(Invoice, on_delete=models.CASCADE, related_name='signature')
-    image = models.ImageField(upload_to='signatures/')
+    image = models.ImageField(upload_to='signatures/', null=True, blank=True)
 
     def __str__(self):
         return f"Signature for Invoice {self.invoice.receipt_number}"
