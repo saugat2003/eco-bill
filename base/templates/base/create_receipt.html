@@ -1,125 +1,305 @@
-<!-- templates/receipts/create_receipt.html -->
 {% load static %}
+{% include 'base/navbar.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root {
+            --leaf-green: #4CAF50;
+            --forest-green: #2E7D32;
+            --earth-brown: #795548;
+            --sand-beige: #F5F5DC;
+            --sky-blue: #87CEEB;
+        }
 
-{% block content %}
-<form method="POST" enctype="multipart/form-data" class="form-container">
-    {% csrf_token %}
-    
-    <div class="header">
-        <h2>{{ organization.name }}</h2>
-    </div>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F9FBF9;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    <div class="form-group">
-        {{ customer_form.address }}
-    </div>
+        .form-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
 
-    <div class="row">
-        <div class="column">
-            {{ customer_form.phone }}
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--leaf-green);
+        }
+
+        .header h2 {
+            color: var(--forest-green);
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--forest-green);
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--leaf-green);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .required-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--forest-green);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .add-button {
+            background-color: var(--leaf-green);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-button:hover {
+            background-color: var(--forest-green);
+        }
+
+        .signature-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .signature-box {
+            width: 500px;
+            height: 200px;
+            margin: 1rem auto;
+            border: 2px dashed var(--leaf-green);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--leaf-green);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--forest-green);
+        }
+
+        /* Eco-friendly checkbox style */
+        input[type="checkbox"] {
+            accent-color: var(--leaf-green);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .signature-box {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
+        
+        <div class="header">
+            <h2>{{ organization.name }}</h2>
+            <h3>{{ organization.address }}</h3>
+            <h3>{{ organization.contact_number }}</h3>
         </div>
-        <div class="column">
-            {{ customer_form.email }}
+        <h3>Bill To:</h3>
+        <div class="row">
+            <div class="column">
+                <div class="form-group">
+                     <label for="id_date">Customer name</label>
+                    {{ customer_form.name }}
+                    <div class="required-text">Customer Name is Required</div>
+                </div>
+                <div class="form-group">
+                    <label for="id_date">WhatsApp</label>
+                    {{ customer_form.phone }}
+                    <div class="required-text">Required if you want to send receipt to WhatsApp</div>
+                </div>
+                <div class="form-group">
+                    <label for="id_date">Email</label>
+                    {{ customer_form.email }}
+                    <div class="required-text">Required if you want to send receipt to Email</div>
+                </div>
+                <div class="form-group">
+                    <label for="id_date">Address</label>
+                    {{ customer_form.address }}
+                    <div class="required-text">Address is not required</div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <label for="id_receipt_number">Receipt Number</label>
+                    {{ invoice_form.receipt_number }}
+                    <div class="required-text">Unique Id for the receipt</div>
+                </div>
+                <div class="form-group">
+                    <label for="id_date">Date</label>
+                    {{ invoice_form.date }}
+                    <div class="required-text">Date is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="id_payment_method">Payment Method</label>
+                    
+                    {{ invoice_form.payment_method }}
+                    <div class="required-text">Payment Method is required</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="column">
-            <h3>Bill To:</h3>
-            <div class="form-group">
-                {{ customer_form.name }}
-                <div class="required-text">Customer Name is not Required</div>
-            </div>
-            <div class="form-group">
-                {{ customer_form.phone }}
-                <div class="required-text">Required if you want to send receipt to WhatsApp</div>
-            </div>
-            <div class="form-group">
-                {{ customer_form.email }}
-                <div class="required-text">Required if you want to send receipt to Email</div>
-            </div>
-            <div class="form-group">
-                {{ customer_form.address }}
-                <div class="required-text">Address is not required</div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="form-group">
-                <label>Receipt Number</label>
-                {{ invoice_form.receipt_number }}
-                <div class="required-text">Unique Id for the receipt</div>
-            </div>
-            <div class="form-group">
-                <label>Date</label>
-                {{ invoice_form.date }}
-                <div class="required-text">Date is required</div>
-            </div>
-            <div class="form-group">
-                <label>Payment Method</label>
-                {{ invoice_form.payment_method }}
-                <div class="required-text">Payment Method is required</div>
-            </div>
-        </div>
-    </div>
-
-    {{ invoice_item_formset.management_form }}
-    <table>
-        <thead>
-            <tr>
-                <th>Actions</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody id="invoice-items">
-            {% for form in invoice_item_formset %}
+        {{ invoice_item_formset.management_form }}
+        <table>
+            <thead>
                 <tr>
-                    <td>
-                        {% if forloop.last %}
-                            <button type="button" class="add-button" onclick="addInvoiceItem()">+</button>
-                        {% else %}
-                            {{ form.DELETE }}
-                        {% endif %}
-                    </td>
-                    <td>{{ form.product }}</td>
-                    <td>{{ form.quantity }}</td>
-                    <td>{{ form.unit_price }}</td>
-                    <td class="item-total">0.00 USD</td>
+                    <th>Actions</th>
+                    <th>Products</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="invoice-items">
+                {% for form in invoice_item_formset %}
+                    <tr>
+                        <td>
+                            {% if forloop.last %}
+                                <button type="button" class="add-button" onclick="addInvoiceItem()">+</button>
+                            {% else %}
+                                {{ form.DELETE }}
+                            {% endif %}
+                        </td>
+                        <td>{{ form.product }}</td>
+                        <td>{{ form.quantity }}</td>
+                        <td>{{ form.unit_price }}</td>
+                        <td class="item-total">0.00 Nrs</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <div class="signature-section">
-        <div class="signature-box">
-            {{ signature_form.image }}
+        <div class="signature-section">
+            <div class="signature-box">
+                {{ signature_form.image }}
+            </div>
+            <div>Seal or Signature</div>
+            <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
         </div>
-        <div>Seal or Signature</div>
-        <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
-    </div>
 
-    <div class="button-group">
-        <button type="submit" class="btn btn-primary">Save Receipt</button>
-    </div>
-</form>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Save Receipt</button>
+        </div>
+    </form>
+    {% endblock %}
 
-<script>
-    function addInvoiceItem() {
-        const totalForms = document.getElementById('id_form-TOTAL_FORMS');
-        const formNum = parseInt(totalForms.value);
-        const newForm = document.querySelector('#invoice-items tr:last-child').cloneNode(true);
-        
-        // Update form index
-        newForm.innerHTML = newForm.innerHTML.replaceAll(
-            new RegExp('form-' + (formNum-1), 'g'), 
-            'form-' + formNum
-        );
-        
-        document.querySelector('#invoice-items').appendChild(newForm);
-        totalForms.value = formNum + 1;
-    }
-
-    // Add your JavaScript for calculating totals here
-</script>
-{% endblock %}
+    <script>
+        function addInvoiceItem() {
+            const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+            const formNum = parseInt(totalForms.value);
+            const newForm = document.querySelector('#invoice-items tr:last-child').cloneNode(true);
+            
+            // Update form index
+            newForm.innerHTML = newForm.innerHTML.replaceAll(
+                new RegExp('form-' + (formNum-1), 'g'), 
+                'form-' + formNum
+            );
+            
+            document.querySelector('#invoice-items').appendChild(newForm);
+            totalForms.value = formNum + 1;
+        }
+    </script>
+</body>
+</html>

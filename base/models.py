@@ -28,7 +28,7 @@ class PaymentMethod(models.Model):
         ('wallet', 'Wallet'),
         ('mobile_banking', 'Mobile Banking'),
     ]
-    method = models.CharField(max_length=100, unique=True, choices=METHOD_CHOICES)
+    method = models.CharField(max_length=100, unique=True, choices=METHOD_CHOICES, null = True)
 
     def __str__(self):
         return self.method

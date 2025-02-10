@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'accounts',
+    'widget_tweaks',
 
     # For google authentication
     'django.contrib.sites', # Required for allauth

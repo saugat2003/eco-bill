@@ -1,199 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>eco-bill</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBill - Sustainable Digital Billing</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            display: flex;
+            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin-top: 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #1B5E20;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #424242;
+            margin-bottom: 2rem;
             line-height: 1.6;
         }
 
-        .smart-scroll {
-            background-color: #212529;
-            padding: 1rem 0;
-        }
-
-        .container-fluid {
-            width: 100%;
-            padding: 0 15px;
-            margin: 0 auto;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            height: 20px;
-        }
-
-        .navbar-brand {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .navbar-nav {
-            display: flex;
-            list-style: none;
-            margin-left: auto;
-        }
-
-        .nav-item {
-            margin: 0 1rem;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: white;
-        }
-
-        .text-primary {
-            color: #007bff;
-        }
-
-        .bg-hero {
-            background: linear-gradient(120deg, #4CAF50, #8BC34A);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .heading-black {
-            color: white;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .lead {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-        }
-
-        .btn {
+        .cta-button {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            background-color: #2E7D32;
+            color: white;
+            padding: 1rem 2rem;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
-        .btn-primary {
-            background-color: white;
-            color: #7f70f5;
-            border: none;
-        }
-
-        .btn-primary:hover {
+        .cta-button:hover {
+            background-color: #1B5E20;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-boxes {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        .stats {
+            display: flex;
             gap: 2rem;
-            padding: 4rem 0;
+            margin-top: 3rem;
+            justify-content: center;
         }
 
-        .box {
+        .stat-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
             text-align: center;
-            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .icon-box {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
+        .stat-number {
+            font-size: 2rem;
+            color: #2E7D32;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
 
-        .box-primary { background-color: #4CAF50; } /* Green for sustainability */
-        .box-success { background-color: #8BC34A; } /* Light green for success */
-        .box-danger { background-color: #FF5722; } /* Orange for warnings */
-        .box-info { background-color: #009688; } /* Teal for information */
-
-        .icon-box-inner {
-            width: 60px;
-            height: 60px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .stat-label {
+            color: #424242;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            .navbar-nav {
-                display: none;
+            .hero-content {
+                text-align: center;
             }
-            
-            .feature-boxes {
-                grid-template-columns: 1fr;
+
+            .stats {
+                flex-direction: column;
+                align-items: center;
             }
-            
-            .heading-black {
-                font-size: 2rem;
+
+            .stat-item {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <section class="smart-scroll">
-        <div class="container-fluid">
-            <nav class="navbar">
-                <a class="navbar-brand" href="#">Eco-bill</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="signup">Sign up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_organization' %}">Add Organization</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </section>
-
-    <section class="bg-hero">
-        <div class="container">
-            <div class="text-center">
-                <h1 class="heading-black">Effortlessly manage your bills with Eco-bill</h1>
-                <p class="lead">Eco-bill is a platform that helps you manage and track your bills effortlessly. Sign up for free and start saving time and money.</p>
-                <a href="{% url 'create_receipt' %}" class="btn btn-primary">Get started now →</a>
+    {% include 'base/navbar.html' %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Billing, Save Our Planet</h1>
+            <p class="subtitle">Join thousands of businesses reducing paper waste through smart, sustainable digital billing solutions. Make every transaction count for the environment.</p>
+            <a href="{% url 'create_receipt' %}" class="cta-button">Get Started Free</a>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Trees Saved</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Digital Bills Processed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Paper Reduction</div>
+                </div>
             </div>
         </div>
     </section>

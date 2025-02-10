@@ -1,20 +1,142 @@
 {% block content %}
-<div class="form-container">
-    <h2>Create Organization</h2>
+<style>
+    /* Sustainable color palette inspired by nature and SDGs */
+    :root {
+        --primary-green: #4CAF50;
+        --secondary-blue: #2196F3;
+        --accent-yellow: #FFC107;
+        --text-dark: #2C3E50;
+        --background-light: #F5F8F7;
+        --error-red: #E57373;
+    }
+
+    .sdg-form-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--background-light);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .sdg-title {
+        color: var(--text-dark);
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        position: relative;
+    }
+
+    .sdg-title:after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--primary-green);
+        margin: 0.5rem auto;
+        border-radius: 2px;
+    }
+
+    .sdg-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .sdg-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .sdg-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #E0E0E0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .sdg-input:focus {
+        outline: none;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+
+    .sdg-error {
+        color: var(--error-red);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: rgba(229, 115, 115, 0.1);
+    }
+
+    .sdg-button {
+        background: var(--primary-green);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        width: 100%;
+    }
+
+    .sdg-button:hover {
+        background: #43A047;
+        transform: translateY(-1px);
+    }
+
+    .sdg-button:active {
+        transform: translateY(1px);
+    }
+
+    /* Sustainability indicator */
+    .sustainability-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        color: var(--text-dark);
+        font-size: 0.875rem;
+    }
+
+    .sustainability-indicator::before {
+        content: '🌱';
+        margin-right: 0.5rem;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .sdg-form-container {
+            margin: 1rem;
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="sdg-form-container">
+    <h2 class="sdg-title">Create Organization</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="form-group">
-            <label>{{ field.label }}</label>
+        <div class="sdg-form-group">
+            <label class="sdg-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
             {% if field.errors %}
-            <div class="error">
+            <div class="sdg-error">
                 {{ field.errors }}
             </div>
             {% endif %}
         </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Create Organization</button>
+        <button type="submit" class="sdg-button">Create Organization</button>
+        <div class="sustainability-indicator">
+            Designed with environmental sustainability in mind
+        </div>
     </form>
 </div>
 {% endblock %}

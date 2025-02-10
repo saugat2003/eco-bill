@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Sign up - Sustainable Future</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
             padding: 20px;
         }
 
@@ -28,13 +28,19 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
+            text-align: center;
         }
 
         h2 {
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
             font-size: 2em;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
         }
 
         .google-btn {
@@ -61,17 +67,35 @@
             height: 20px;
             margin-right: 8px;
         }
+
+        .eco-message {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #4caf50;
+        }
+
+        .eco-message img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
     </style>
 </head>
+{% include 'base/navbar.html' %}
 <body>
     <div class="container">
         <h2>Sign up</h2>
+        <p>Join us in building a sustainable future.</p>
         <div class="social-login">
             {% load socialaccount %}
             <a href="{% provider_login_url 'google'%}?next=/" class="google-btn">
                 <img src="https://logos-world.net/wp-content/uploads/2020/09/Google-Symbol.png" alt="Google Icon" />
                 Login with Google
             </a>
+        </div>
+        <div class="eco-message">
+            <img src="https://img.icons8.com/color/48/000000/leaf.png" alt="Leaf Icon" />
+            Committed to a greener planet.
         </div>
     </div>
 </body>

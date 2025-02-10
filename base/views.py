@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .models import Organization, Invoice, Product, PaymentMethod, InvoiceItem
+from .models import *
 from django.contrib import messages
 from .forms import CustomerForm, InvoiceForm, SignatureForm, InvoiceItemFormSet, OrganizationForm
+from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
 def home(request):
@@ -70,14 +72,14 @@ def create_receipt(request):
     # GET request handling
     context = {
         'customer_form': CustomerForm(),
-        # 'invoice_form' : InvoiceForm(initial={'receipt_number': generate_receipt_number()}),
+        'invoice_form': InvoiceForm(),
         'invoice_item_formset': InvoiceItemFormSet(queryset=InvoiceItem.objects.none()),
         'signature_form': SignatureForm(),
         'products': Product.objects.filter(organization=organization),
         'payment_methods': PaymentMethod.objects.all(),
+
         'organization': organization,
     }
-    
     return render(request, 'base/create_receipt.html', context)
 
 # def generate_receipt_number():
@@ -106,3 +108,20 @@ def create_organization(request):
         form = OrganizationForm()
     
     return render(request, 'base/create_organization.html', {'form': form})
+
+from .models import Invoice, InvoiceItem, Organization, Customer
+
+def invoice_view(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    organization = invoice.organization
+    customer = invoice.customer
+    items = InvoiceItem.objects.filter(invoice=invoice)
+
+    context = {
+        'organization': organization,
+        'customer': customer,
+        'invoice': invoice,
+        'items': items,
+        'total': sum(item.total_price() for item in items),
+    }
+    return render(request, 'invoice.html', context)
