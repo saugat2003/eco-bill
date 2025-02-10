@@ -32,7 +32,7 @@ def create_receipt(request):
                 if all(form.is_valid() for form in [
                     customer_form, invoice_form, 
                     signature_form, invoice_item_formset
-                ]):
+                    ]):
                     # Save customer
                     customer = customer_form.save(commit=False)
                     customer.organization = organization
@@ -59,9 +59,7 @@ def create_receipt(request):
                         signature = signature_form.save(commit=False)
                         signature.invoice = invoice
                         signature.save()
-                    
                     messages.success(request, 'Receipt created successfully!')
-                    return redirect('receipt_detail', pk=invoice.pk)  # Redirect to detail view
                 else:
                     messages.error(request, 'Please correct the errors below.')
         except Exception as e:
@@ -76,7 +74,6 @@ def create_receipt(request):
         'signature_form': SignatureForm(),
         'products': Product.objects.filter(organization=organization),
         'payment_methods': PaymentMethod.objects.all(),
-
         'organization': organization,
     }
     return render(request, 'base/create_receipt.html', context)
@@ -107,6 +104,3 @@ def create_organization(request):
         form = OrganizationForm()
     
     return render(request, 'base/create_organization.html', {'form': form})
-
-from .models import Invoice, InvoiceItem, Organization, Customer
-
