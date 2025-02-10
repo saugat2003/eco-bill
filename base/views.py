@@ -4,7 +4,6 @@ from django.db import transaction
 from .models import *
 from django.contrib import messages
 from .forms import CustomerForm, InvoiceForm, SignatureForm, InvoiceItemFormSet, OrganizationForm
-from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
@@ -111,17 +110,3 @@ def create_organization(request):
 
 from .models import Invoice, InvoiceItem, Organization, Customer
 
-def invoice_view(request, invoice_id):
-    invoice = get_object_or_404(Invoice, id=invoice_id)
-    organization = invoice.organization
-    customer = invoice.customer
-    items = InvoiceItem.objects.filter(invoice=invoice)
-
-    context = {
-        'organization': organization,
-        'customer': customer,
-        'invoice': invoice,
-        'items': items,
-        'total': sum(item.total_price() for item in items),
-    }
-    return render(request, 'invoice.html', context)
