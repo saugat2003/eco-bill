@@ -1,0 +1,118 @@
+{% load static %}
+{% include 'base/navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SDG Themed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .about-us {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            width: 100%;
+            min-height: 100vh;
+            background-position: center;
+            background-size: cover;
+            padding: 10px 10%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about {
+            width: 100%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            padding: 80px 0;
+        }
+
+        .text {
+            width: 70%;
+        }
+
+        .text h2 {
+            color: #333;
+            font-size: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .text h5 {
+            color: #2e7d32;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .text p {
+            color: #2e7d32;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .home-button:hover {
+            background-color: #1e8449;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-us">
+        <div class="about">
+            <div class="text">
+                <h2>About Us - Sustainable Solutions</h2>
+                <h5>Our Mission</h5>
+                <p>
+                    Our system is designed to promote secure and efficient digital transactions while aligning with 
+                    the Sustainable Development Goals (SDGs). We aim to create a responsible and environmentally friendly 
+                    digital ecosystem that supports transparency, security, and sustainability.  
+                </p>
+
+                <h5>Why Sustainability Matters</h5>
+                <p>
+                    We support SDG Goal 9 (Industry, Innovation & Infrastructure) and SDG Goal 12 (Responsible Consumption & Production) 
+                    by reducing paper-based transactions and encouraging digital solutions that are eco-friendly.  
+                </p>
+
+                <h5>Our Commitment</h5>
+                <p>
+                    - Secure and private digital record management ✅ <br>
+                    - Environmentally responsible business processes ♻️ <br>
+                    - User-friendly and accessible technology for all 🌏  
+                </p>
+
+                <a href="/" class="home-button">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
