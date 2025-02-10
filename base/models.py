@@ -43,6 +43,8 @@ class Invoice(models.Model):
 
     def __str__(self):
         return f"Invoice {self.receipt_number} - {self.customer.name}"
+    def total_amount(self):
+        return sum(item.total_price() for item in self.items.all())
 
     @classmethod
     def generate_receipt_number(cls):

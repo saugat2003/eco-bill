@@ -4,6 +4,8 @@ from django.db import transaction
 from .models import *
 from django.contrib import messages
 from .forms import CustomerForm, InvoiceForm, SignatureForm, OrganizationForm, InvoiceItemForm
+from .utils import render_to_pdf
+from django.core.mail import EmailMessage
 import logging
 
 # Create your views here.
@@ -13,7 +15,7 @@ def home(request):
 def signup(request):
     return render(request, 'base/signup.html')
 
-# @login_required
+@login_required
 def create_receipt(request):
     try:
         organization = Organization.objects.get(user=request.user)
@@ -39,7 +41,6 @@ def create_receipt(request):
 
         invoice_item_form = InvoiceItemForm(request.POST)
 
-
         if customer_form.is_valid() and invoice_form.is_valid() and signature_form.is_valid():
             print("the data is saved")
             # Save customer
@@ -52,16 +53,6 @@ def create_receipt(request):
             invoice.organization = organization
             invoice.customer = customer
             invoice.save()
-
-            # # Save invoice items
-            # instances = invoice_item_formset.save(commit=False)
-            # for instance in instances:
-            #     instance.invoice = invoice
-            #     instance.save()
-
-            # Handle deleted invoice items
-            # for obj in invoice_item_formset.deleted_objects:
-            #     obj.delete()
 
             # Save signature (corrected indentation)
             if signature_form.cleaned_data.get('image'):
@@ -80,9 +71,27 @@ def create_receipt(request):
                 print("invoice_item_form is not valid")
                 messages.error(request, invoice_item_form.errors)
 
+            # Generate PDF
+            invoice_items = InvoiceItem.objects.filter(invoice=invoice)
+            context = {
+                'customer': customer,
+                'invoice': invoice,
+                'invoice_items': invoice_items,
+            }
+            pdf = render_to_pdf('base/receipt_pdf.html', context)
+
+            # Send email with PDF attachment
+            email = EmailMessage(
+                'Your Receipt',
+                'Please find attached your receipt.',
+                'from@example.com',
+                [customer.email],
+            )
+            email.attach('receipt.pdf', pdf, 'application/pdf')
+            email.send()
 
             # Success message (outside loop)
-            messages.success(request, 'Receipt created successfully!')
+            messages.success(request, 'Receipt created and sent successfully!')
             return redirect('success')  # Redirect to avoid form resubmission
 
         else:
@@ -95,8 +104,7 @@ def create_receipt(request):
         customer_form = CustomerForm()
         invoice_form = InvoiceForm()
         signature_form = SignatureForm()
-        invoice_item_form= InvoiceItemForm()
-        
+        invoice_item_form = InvoiceItemForm()
 
     # Render form with context
     context = {
@@ -109,7 +117,8 @@ def create_receipt(request):
         'invoice_item_form': invoice_item_form,
     }
     return render(request, 'base/create_receipt.html', context)
-# @login_required
+
+@login_required
 def create_organization(request):
     if request.method == 'POST':
         form = OrganizationForm(request.POST, request.FILES)
@@ -121,7 +130,7 @@ def create_organization(request):
             return redirect('create_receipt')
     else:
         form = OrganizationForm()
-    
+
     return render(request, 'base/create_organization.html', {'form': form})
 
 def success(request):

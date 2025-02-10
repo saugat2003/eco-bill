@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        .receipt-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .receipt-header, .receipt-footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .receipt-details {
+            margin-bottom: 20px;
+        }
+        .receipt-details p {
+            margin: 5px 0;
+        }
+        .items-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .items-list li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .total-amount {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="receipt-header">
+            <h1>Receipt</h1>
+        </div>
+        <div class="receipt-details">
+            <p>Customer: {{ customer.name }}</p>
+            <p>Invoice Number: {{ invoice.invoice_number }}</p>
+            <p>Date: {{ invoice.date }}</p>
+            <p class="total-amount">Total Amount: {{ invoice.total_amount }}</p>
+        </div>
+        <h2>Items</h2>
+        <ul class="items-list">
+            {% for item in invoice_items %}
+            <li>{{ item.product.name }} - {{ item.quantity }} x {{ item.price }}</li>
+            {% endfor %}
+        </ul>
+        <div class="receipt-footer">
+            <p>Thank you for your business!</p>
+        </div>
+    </div>
+</body>
+</html>
