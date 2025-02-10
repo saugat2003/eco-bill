@@ -22,7 +22,13 @@ class Customer(models.Model):
         return self.name
 
 class PaymentMethod(models.Model):
-    method = models.CharField(max_length=100, unique=True)
+    METHOD_CHOICES = [
+        ('cash', 'Cash'),
+        ('cheque', 'Cheque'),
+        ('wallet', 'Wallet'),
+        ('mobile_banking', 'Mobile Banking'),
+    ]
+    method = models.CharField(max_length=100, unique=True, choices=METHOD_CHOICES)
 
     def __str__(self):
         return self.method
@@ -37,6 +43,16 @@ class Invoice(models.Model):
     def __str__(self):
         return f"Invoice {self.receipt_number} - {self.customer.name}"
 
+    @classmethod
+    def generate_receipt_number(cls):
+        last_invoice = cls.objects.order_by('-id').first()
+        if last_invoice:
+            last_number = int(last_invoice.receipt_number.split('-')[1])
+            new_number = last_number + 1
+        else:
+            new_number = 1
+        return f'REC-{new_number:06d}'
+    
 class Product(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=255)

@@ -1,0 +1,125 @@
+<!-- templates/receipts/create_receipt.html -->
+{% load static %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="form-container">
+    {% csrf_token %}
+    
+    <div class="header">
+        <h2>{{ organization.name }}</h2>
+    </div>
+
+    <div class="form-group">
+        {{ customer_form.address }}
+    </div>
+
+    <div class="row">
+        <div class="column">
+            {{ customer_form.phone }}
+        </div>
+        <div class="column">
+            {{ customer_form.email }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <h3>Bill To:</h3>
+            <div class="form-group">
+                {{ customer_form.name }}
+                <div class="required-text">Customer Name is not Required</div>
+            </div>
+            <div class="form-group">
+                {{ customer_form.phone }}
+                <div class="required-text">Required if you want to send receipt to WhatsApp</div>
+            </div>
+            <div class="form-group">
+                {{ customer_form.email }}
+                <div class="required-text">Required if you want to send receipt to Email</div>
+            </div>
+            <div class="form-group">
+                {{ customer_form.address }}
+                <div class="required-text">Address is not required</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <label>Receipt Number</label>
+                {{ invoice_form.receipt_number }}
+                <div class="required-text">Unique Id for the receipt</div>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                {{ invoice_form.date }}
+                <div class="required-text">Date is required</div>
+            </div>
+            <div class="form-group">
+                <label>Payment Method</label>
+                {{ invoice_form.payment_method }}
+                <div class="required-text">Payment Method is required</div>
+            </div>
+        </div>
+    </div>
+
+    {{ invoice_item_formset.management_form }}
+    <table>
+        <thead>
+            <tr>
+                <th>Actions</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="invoice-items">
+            {% for form in invoice_item_formset %}
+                <tr>
+                    <td>
+                        {% if forloop.last %}
+                            <button type="button" class="add-button" onclick="addInvoiceItem()">+</button>
+                        {% else %}
+                            {{ form.DELETE }}
+                        {% endif %}
+                    </td>
+                    <td>{{ form.product }}</td>
+                    <td>{{ form.quantity }}</td>
+                    <td>{{ form.unit_price }}</td>
+                    <td class="item-total">0.00 USD</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            {{ signature_form.image }}
+        </div>
+        <div>Seal or Signature</div>
+        <div class="required-text">500 x 500 recommended. Max size: 5 MB</div>
+    </div>
+
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">Save Receipt</button>
+    </div>
+</form>
+
+<script>
+    function addInvoiceItem() {
+        const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+        const formNum = parseInt(totalForms.value);
+        const newForm = document.querySelector('#invoice-items tr:last-child').cloneNode(true);
+        
+        // Update form index
+        newForm.innerHTML = newForm.innerHTML.replaceAll(
+            new RegExp('form-' + (formNum-1), 'g'), 
+            'form-' + formNum
+        );
+        
+        document.querySelector('#invoice-items').appendChild(newForm);
+        totalForms.value = formNum + 1;
+    }
+
+    // Add your JavaScript for calculating totals here
+</script>
+{% endblock %}

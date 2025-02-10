@@ -1,0 +1,20 @@
+{% block content %}
+<div class="form-container">
+    <h2>Create Organization</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div class="error">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Create Organization</button>
+    </form>
+</div>
+{% endblock %}
