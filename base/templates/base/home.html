@@ -1,9 +1,11 @@
+{% load static %}
+{% include 'base/navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoBill - Sustainable Digital Billing</title>
+    <title>Eco-Bill - Sustainable Digital Billing</title>
     <style>
         * {
             margin: 0;
@@ -14,11 +16,12 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            background: #74E926;
+            background: radial-gradient(at right top, #74E926, #72CEC6);
             margin: 0;
             padding: 0;
             text-align: center;
-            width: 100%;
+            width: 100wh;
             height: 100vh;
             background-position: center;
             background-size: cover;
@@ -27,7 +30,6 @@
         }
         .hero {
             min-height: 100vh;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
             display: flex;
             margin-top: 10px;
             align-items: center;
@@ -43,7 +45,7 @@
 
         h1 {
             font-size: 3.5rem;
-            color: #1B5E20;
+            color: black;
             margin-bottom: 1.5rem;
             line-height: 1.2;
         }
@@ -94,7 +96,7 @@
         }
 
         .stat-label {
-            color: #424242;
+            color:rgb(0, 0, 0);
             font-size: 0.9rem;
         }
 
@@ -120,7 +122,8 @@
     </style>
 </head>
 <body>
-    {% include 'base/navbar.html' %}
+    
+   
     <section class="hero">
         <div class="hero-content">
             <h1>Transform Your Billing, Save Our Planet</h1>

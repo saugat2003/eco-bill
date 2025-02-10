@@ -97,7 +97,7 @@ def create_receipt(request):
         else:
             print("the data is not saved")
             messages.error(request, 'Please correct the errors below.')
-            return redirect('create_receipt')
+            return redirect('home')
 
     else:
         # Initialize forms for GET request or after form error
