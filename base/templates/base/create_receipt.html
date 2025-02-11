@@ -174,13 +174,10 @@
         {% csrf_token %}
         
         <div class="header">
-        <img src="{{ organization.logo.url }}" alt="{{ organization.name }} Logo" style="max-width: 150px; max-height: 150px; margin-bottom: 1rem;">
+        <img src="{{ organization.logo.url }}" alt="{{ organization.name }} Logo" style="max-width: 180px; max-height: 150px; margin-bottom: 1rem;">
             <h2>{{ organization.name }}</h2>
             <h3>{{ organization.address }}</h3>
             <h3>{{ organization.contact_number }}</h3>
-            {% if user.is_authenticated %}
-                <p>Logged in as: {{ user.username }}</p>
-            {% endif %}
         </div>
 
 
