@@ -71,3 +71,6 @@ This project is licensed under the MIT License.
 ## Contact
 For any queries or support, reach out at [saugat.codes@gmail.com].
 
+![Screenshot 2025-02-11 061224](https://github.com/user-attachments/assets/a1413dfd-6bac-4488-ba5f-c34a609b5507)
+![Screenshot 2025-02-11 061208](https://github.com/user-attachments/assets/8c369b5e-3d2b-454a-ae9b-46d7ad90a9c2)
+![Screenshot 2025-02-11 061126](https://github.com/user-attachments/assets/37da545e-5c21-4fb4-9a6d-d69d04b39ed2)
