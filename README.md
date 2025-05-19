@@ -2,7 +2,7 @@
 
 Eco-Bill is a web application that helps businesses create invoices online and send them directly via email or WhatsApp. Built entirely with Django, Eco-Bill promotes sustainability by reducing paper waste and streamlining invoicing processes digitally.
 
-## Features
+## Features 
 - **Online Invoice Creation** – Generate invoices quickly and efficiently.
 - **Email / WhatsApp Integration** – Send invoices directly to clients.
 - **Sustainability Focus** – Supports paperless invoicing for an eco-friendly approach.
